@@ -19,6 +19,8 @@ import io.confluent.connect.hdfs.FileUtils;
 import io.confluent.connect.hdfs.HdfsSinkConnectorConfig;
 import io.confluent.connect.hdfs.SchemaFileReader;
 import io.confluent.connect.hdfs.TestWithMiniDFSCluster;
+
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.Path;
 import org.apache.kafka.common.TopicPartition;
@@ -32,8 +34,8 @@ import org.junit.Test;
 import io.confluent.connect.hdfs.filter.TopicPartitionCommittedFileFilter;
 import io.confluent.connect.hdfs.partitioner.Partitioner;
 import io.confluent.connect.hdfs.storage.Storage;
-import io.confluent.connect.hdfs.storage.StorageFactory;
-import io.confluent.connect.hdfs.wal.WAL;
+import io.confluent.connect.storage.StorageFactory;
+import io.confluent.connect.storage.wal.WAL;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -102,7 +104,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
     @SuppressWarnings("unchecked")
     Class<? extends Storage> storageClass = (Class<? extends Storage>)
         Class.forName(connectorConfig.getString(HdfsSinkConnectorConfig.STORAGE_CLASS_CONFIG));
-    Storage storage = StorageFactory.createStorage(storageClass, conf, url);
+    Storage storage = StorageFactory.createStorage(storageClass, Configuration.class, conf, url);
 
     WAL wal = storage.wal(logsDir, TOPIC_PARTITION);
 

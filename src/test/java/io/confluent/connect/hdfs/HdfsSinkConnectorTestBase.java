@@ -45,7 +45,6 @@ public class HdfsSinkConnectorTestBase extends StorageSinkTestBase {
   @Before
   @Override
   public void setUp() throws Exception {
-    super.setUp();
     conf = new Configuration();
     url = "memory://";
     super.setUp();
@@ -55,6 +54,7 @@ public class HdfsSinkConnectorTestBase extends StorageSinkTestBase {
   }
 
   @After
+  @Override
   public void tearDown() throws Exception {
     if (assignment != null) {
       assignment.clear();
