@@ -73,7 +73,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
       sinkRecords.add(sinkRecord);
     }
     hdfsWriter.write(sinkRecords);
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
 
     String encodedPartition = "partition=" + String.valueOf(PARTITION);
@@ -143,7 +143,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
           new SinkRecord(TOPIC, PARTITION, Schema.STRING_SCHEMA, key, schema, record, 50 + i));
 
     hdfsWriter.write(sinkRecords);
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
 
     committedFiles.add(FileUtils.committedFileName(url, topicsDir, directory, TOPIC_PARTITION,
@@ -176,7 +176,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
       }
     }
     hdfsWriter.write(sinkRecords);
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
 
     // Last file (offset 6) doesn't satisfy size requirement and gets discarded on close
@@ -226,7 +226,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
     long previousOffset = committedOffsets.get(TOPIC_PARTITION);
     assertEquals(previousOffset, 6L);
 
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
   }
 
@@ -248,7 +248,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
     }
 
     hdfsWriter.write(sinkRecords);
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
 
     String directory = partitioner.generatePartitionedPath(TOPIC, "partition=" + String.valueOf(PARTITION));
@@ -298,7 +298,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
     newAssignment.add(TOPIC_PARTITION);
     newAssignment.add(TOPIC_PARTITION3);
 
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     assignment = newAssignment;
     hdfsWriter.open(newAssignment);
 
@@ -334,7 +334,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
     }
 
     hdfsWriter.write(sinkRecords);
-    hdfsWriter.close(newAssignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
 
     // Last file (offset 9) doesn't satisfy size requirement and gets discarded on close
@@ -395,7 +395,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
     sinkRecords.add(new SinkRecord(TOPIC, PARTITION, Schema.STRING_SCHEMA, key, schema, record, 1L));
 
     hdfsWriter.write(sinkRecords);
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
 
     String DIRECTORY = TOPIC + "/" + "partition=" + String.valueOf(PARTITION);
@@ -418,7 +418,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
                                    newRecord, 3L));
 
     hdfsWriter.write(sinkRecords);
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
 
     path = new Path(FileUtils.committedFileName(url, topicsDir, DIRECTORY, TOPIC_PARTITION, 2L,
@@ -453,7 +453,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
     sinkRecords.add(new SinkRecord(TOPIC, PARTITION, Schema.STRING_SCHEMA, key, schema, record, 2L));
 
     hdfsWriter.write(sinkRecords);
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
 
     String DIRECTORY = TOPIC + "/" + "partition=" + String.valueOf(PARTITION);
@@ -479,7 +479,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
     sinkRecords.add(new SinkRecord(TOPIC, PARTITION, Schema.STRING_SCHEMA, key, newSchema, newRecord, 4L));
 
     hdfsWriter.write(sinkRecords);
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
 
     path = new Path(FileUtils.committedFileName(url, topicsDir, DIRECTORY, TOPIC_PARTITION, 3L,
@@ -515,7 +515,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
     sinkRecords.add(new SinkRecord(TOPIC, PARTITION, Schema.STRING_SCHEMA, key, schema, record, 2L));
 
     hdfsWriter.write(sinkRecords);
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
 
     String DIRECTORY = TOPIC + "/" + "partition=" + String.valueOf(PARTITION);
@@ -540,7 +540,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
     sinkRecords.add(new SinkRecord(TOPIC, PARTITION, Schema.STRING_SCHEMA, key, newSchema, newRecord, 4L));
 
     hdfsWriter.write(sinkRecords);
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
 
     path = new Path(FileUtils.committedFileName(url, topicsDir, DIRECTORY, TOPIC_PARTITION, 3L,
@@ -590,7 +590,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
     } catch (RuntimeException e) {
       // expected
     }
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
   }
 
@@ -638,7 +638,7 @@ public class DataWriterAvroTest extends TestWithMiniDFSCluster {
     long previousOffset = committedOffsets.get(TOPIC_PARTITION);
     assertEquals(NUMBER_OF_RECORD, previousOffset);
 
-    hdfsWriter.close(assignment);
+    hdfsWriter.close();
     hdfsWriter.stop();
   }
 
